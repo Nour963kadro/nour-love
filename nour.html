@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Do You Love Me? 💕</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Comic Sans MS", cursive;
+  overflow: hidden;
+}
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  animation: pop 0.4s ease;
+}
+@keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+h1 { color: #ff4f8b; }
+p { font-size: 18px; }
+button {
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  transition: transform 0.2s;
+}
+button:hover { transform: scale(1.1); }
+.yes { background: #ff69b4; color: white; }
+.no { background: #ddd; }
+input {
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #ff69b4;
+  font-size: 16px;
+  width: 80%;
+  text-align: center;
+}
+.hearts span {
+  position: absolute;
+  font-size: 22px;
+  animation: float 6s linear infinite;
+}
+@keyframes float { 0% { transform: translateY(100vh); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-10vh); opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="hearts"></div>
+<div class="card" id="card">
+  <h1>Do you love YourGirlfriend? 💖</h1>
+  <button class="yes" onclick="yes()">Yes 💕</button>
+  <button class="no" onclick="no()">No 🙄</button>
+</div>
+
+<script>
+let step = 0;
+
+function yes() {
+  const card = document.getElementById("card");
+  if(step === 0) {
+    card.innerHTML = `
+      <h1>OMG 😳💗</h1>
+      <p>I can’t believe this!</p>
+      <p>How much do you love YourGirlfriend <b>(1 to 100)</b>? 😏</p>
+      <input type="number" id="loveNum" min="1" max="100" placeholder="Only 100 is correct 💕">
+      <br><br>
+      <button class="yes" onclick="submitLove()">Submit 💘</button>
+    `;
+    step = 1;
+  }
+}
+
+function submitLove() {
+  const num = document.getElementById("loveNum").value;
+  const card = document.getElementById("card");
+  if(num < 100) {
+    card.innerHTML = `
+      <h1>😐 Really?</h1>
+      <p>${num}? That’s not enough love 😤</p>
+      <p>Try again… carefully 😈</p>
+      <button class="yes" onclick="yes()">Okay okay 💕</button>
+    `;
+    step = 0;
+  } else {
+    card.innerHTML = `
+      <h1>100?! 😍💖</h1>
+      <p>That’s PERFECT 🥰</p>
+      <p>YourGirlfriend is officially loved forever 💞</p>
+      <p>💗💗💗💗💗</p>
+    `;
+  }
+}
+
+function no() {
+  const card = document.getElementById("card");
+  card.innerHTML = `
+    <h1>❌ Nope</h1>
+    <p>Wrong answer 😤</p>
+    <p>Try again… you know what to do 😏</p>
+    <button class="yes" onclick="yes()">YES 💖</button>
+  `;
+}
+
+// Floating hearts
+setInterval(() => {
+  const heart = document.createElement("span");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "%";
+  document.querySelector(".hearts").appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+</script>
+</body>
+</html>
